@@ -1,8 +1,6 @@
-| Supported Targets | ESP32-Wroover-8 MB Flash & PSRAM |
+| Supported Targets | ESP32-Wroover-8 MB Flash & 8MB PSRAM |
 | ----------------- | ----- |
 # ESP32 Offline Text To Speech Example
-
-This example illustrates the usage of the [Console Component](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/console.html#console) to create an interactive shell on the ESP chip. The interactive shell running on the ESP chip can then be controlled/interacted with over a serial port (UART).
 
 The interactive shell implemented in this example provides command to dynamically enter text which you want to convert to speech.
 
@@ -10,17 +8,18 @@ The interactive shell implemented in this example provides command to dynamicall
 
 ### Hardware Required
 
-* A development board with ESP32 SoC (e.g., ESP32-DevKitC, ESP-WROVER-KIT, etc.) with 8MB flash and 8MB PSRam
+* A development board with ESP32 SoC (e.g., ESP32-DevKitC, ESP-WROVER-KIT, etc.) with 8MB flash and 8MB PSRAM
 * Adafruit I2S 3W Class D Amplifier Breakout - MAX98357A
 * A USB cable for power supply and programming
 
 The following table describes the pins we use by default
-  
+
+
 | pin name| function | gpio_num | MAX98357 pin |
-|:---:|:---:|:---:|
-| WS  |word select| GPIO_NUM_5 | LRC
-| SCK |continuous serial clock| GPIO_NUM_4 | BCLK
-| DO |data out| GPIO_NUM_18 | DIN
+|:---:|:---:|:---:|:---:|
+| WS  |word select| GPIO_NUM_5 | LRC |
+| SCK |continuous serial clock| GPIO_NUM_4 | BCLK |
+| DO |data out| GPIO_NUM_18 | DIN |
 
 GAIN, SD pins of MAX98357 are not connected
 
@@ -53,19 +52,25 @@ See the Getting Started Guide for full steps to configure and use ESP-IDF to bui
 Enter the `help` command get a full list of all available commands. The following is a sample session of the Console Example where a variety of commands provided by the Console Example are used. Note that GPIO15 is connected to GND to remove the boot log output. 
 
 ```
-This is an example of ESP-IDF console component.
 Type 'help' to get the list of commands.
 Use UP/DOWN arrows to navigate through command history.
 Press TAB when typing command name to auto-complete.
 [esp32]> help
-help 
-  Print the list of registered commands
+free
+  Get the current size of free heap memory
 
-free 
-  Get the total size of heap memory available
+heap
+  Get minimum size of free heap memory that was available during program execu
+  tion
 
-restart 
-  Restart the program
+version
+  Get version of chip and SDK
+
+restart
+  Software reset of the chip
+
+tasks
+  Get information about running tasks
 
 deep_sleep  [-t <t>] [--io=<n>] [--io_level=<0|1>]
   Enter deep sleep mode. Two wakeup modes are supported: timer and GPIO. If no
@@ -74,25 +79,25 @@ deep_sleep  [-t <t>] [--io=<n>] [--io_level=<0|1>]
       --io=<n>  If specified, wakeup using GPIO with given number
   --io_level=<0|1>  GPIO level to trigger wakeup
 
+light_sleep  [-t <t>] [--io=<n>]... [--io_level=<0|1>]...
+  Enter light sleep mode. Two wakeup modes are supported: timer and GPIO. Mult
+  iple GPIO pins can be specified using pairs of 'io' and 'io_level' arguments
+  . Will also wake up on UART input.
+  -t, --time=<t>  Wake up time, ms
+      --io=<n>  If specified, wakeup using GPIO with given number
+  --io_level=<0|1>  GPIO level to trigger wakeup
+
+tts  <tts_text>
+  Convert text to speech
+    <tts_text>  Text to covert to speech
+
+help
+  Print the list of registered commands
+
 
 [esp32]> free
 257200
-[esp32]> deep_sleep -t 1000
-I (146929) deep_sleep: Enabling timer wakeup, timeout=1000000us
-I (619) heap_init: Initializing. RAM available for dynamic allocation:
-I (620) heap_init: At 3FFAE2A0 len 00001D60 (7 KiB): DRAM
-I (626) heap_init: At 3FFB7EA0 len 00028160 (160 KiB): DRAM
-I (645) heap_init: At 3FFE0440 len 00003BC0 (14 KiB): D/IRAM
-I (664) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM
-I (684) heap_init: At 40093EA8 len 0000C158 (48 KiB): IRAM
-
-This is an example of ESP-IDF console component.
-Type 'help' to get the list of commands.
-Use UP/DOWN arrows to navigate through command history.
-Press TAB when typing command name to auto-complete.
 [esp32]> tts "This is text to speech example"
-[esp32]> free
-212328
 [esp32]> restart
 I (205639) restart: Restarting
 I (616) heap_init: Initializing. RAM available for dynamic allocation:
