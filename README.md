@@ -21,7 +21,7 @@ The following table describes the pins we use by default
 | SCK |continuous serial clock| GPIO_NUM_4 | BCLK |
 | DO |data out| GPIO_NUM_18 | DIN |
 
-GAIN, SD pins of MAX98357 are not connected
+GAIN, SD pins of MAX98357 are not connected.
 
 ### Configure the project
 
@@ -29,8 +29,8 @@ GAIN, SD pins of MAX98357 are not connected
 idf.py menuconfig
 ```
 
-* `Serial flasher config > Flash size > 8 MB` as necessary
-* `Partition Table > Partition Table > Custom partition table CSV` as necessary
+* `Serial flasher config > Flash size > 8 MB`
+* `Partition Table > Partition Table > Custom partition table CSV`
 
 ### Build and Flash
 
@@ -98,6 +98,7 @@ help
 [esp32]> free
 257200
 [esp32]> tts "This is text to speech example"
+I (410163) connect: Text to convert 'This is text to speech e'
 [esp32]> restart
 I (205639) restart: Restarting
 I (616) heap_init: Initializing. RAM available for dynamic allocation:
