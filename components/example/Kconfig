@@ -1,0 +1,4 @@
+config FOO_ENABLE_BAR
+    bool "Enable the Example component."
+    help
+        This enables the example component.
