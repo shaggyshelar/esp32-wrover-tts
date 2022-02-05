@@ -85,6 +85,7 @@ void app_main(void)
 
     /* Register commands */
     esp_console_register_help_command();
+    register_system();
     register_tts();
 
     ESP_ERROR_CHECK(esp_console_new_repl_uart(&uart_config, &repl_config, &repl));
